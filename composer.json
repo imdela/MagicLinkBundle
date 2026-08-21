@@ -1,0 +1,40 @@
+{
+	"name": "ossm/magic-link-bundle",
+	"description": "Symfony bundle for single-use, expiring capability links that grant access without a user account",
+	"type": "symfony-bundle",
+	"license": "MIT",
+	"keywords": [
+		"symfony",
+		"bundle",
+		"magic-link",
+		"single-use",
+		"capability-url",
+		"one-time",
+		"token",
+		"passwordless"
+	],
+	"require": {
+		"php": ">=8.2",
+		"doctrine/orm": "^3.0",
+		"symfony/config": "^6.4|^7.4|^8.0",
+		"symfony/dependency-injection": "^6.4|^7.4|^8.0",
+		"symfony/http-kernel": "^6.4|^7.4|^8.0"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^2.2",
+		"phpstan/phpstan-doctrine": "^2.0",
+		"phpunit/phpunit": "^10.5|^11.0",
+		"symfony/var-exporter": "^6.4|^7.4",
+		"symplify/easy-coding-standard": "^12.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Ossm\\MagicLinkBundle\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Ossm\\MagicLinkBundle\\Tests\\": "tests/"
+		}
+	}
+}
