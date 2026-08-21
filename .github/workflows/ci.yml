@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+jobs:
+  quality:
+    name: "PHP ${{ matrix.php }} / Symfony ${{ matrix.symfony }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+        symfony: ['6.4.*', '7.4.*', '8.0.*']
+        exclude:
+          # symfony/*:8.0.* requires PHP >=8.4
+          - php: '8.2'
+            symfony: '8.0.*'
+          - php: '8.3'
+            symfony: '8.0.*'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Constrain Symfony components to matrix version
+        run: |
+          composer require --no-update \
+            "symfony/config:${{ matrix.symfony }}" \
+            "symfony/dependency-injection:${{ matrix.symfony }}" \
+            "symfony/http-kernel:${{ matrix.symfony }}"
+
+      - name: Install dependencies
+        run: composer update --with-all-dependencies --prefer-dist --no-progress --no-interaction
+
+      - name: Security audit
+        run: composer audit
+
+      - name: Coding standard (ECS)
+        run: vendor/bin/ecs check
+
+      - name: Static analysis (PHPStan)
+        run: vendor/bin/phpstan analyse
+
+      - name: Tests (PHPUnit)
+        run: vendor/bin/phpunit
+
+  # Branch protection on main requires a single stable status-check
+  # context, but the matrix job above reports one check per PHP/Symfony
+  # combination. This gate succeeds only when every matrix run has
+  # passed, giving the CI workflow one check named "quality".
+  quality-gate:
+    name: quality
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify quality matrix
+        run: echo "All quality matrix jobs passed"
