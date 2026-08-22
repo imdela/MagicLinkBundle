@@ -42,6 +42,10 @@ final class MagicLinkManager
         array $payload = [],
         ?int $ttl = null,
     ): MagicLink {
+        if ($ttl !== null && $ttl < 1) {
+            throw new \InvalidArgumentException(sprintf('TTL must be a positive number of seconds, got %d.', $ttl));
+        }
+
         $token = bin2hex(random_bytes(32));
 
         $now = new DateTimeImmutable();
