@@ -67,6 +67,39 @@ final class MagicLinkManagerTest extends TestCase
         );
     }
 
+    public function testIssueRejectsZeroTtl(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->manager->issue(self::PURPOSE, null, [], 0);
+    }
+
+    public function testIssueRejectsNegativeTtl(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->manager->issue(self::PURPOSE, null, [], -60);
+    }
+
+    public function testIssueCarriesNestedArrayPayload(): void
+    {
+        $payload = [
+            'role' => 'candidate',
+            'meta' => [
+                'source' => 'referral',
+                'scores' => [1, 2, 3],
+            ],
+        ];
+
+        $link = $this->manager->issue(self::PURPOSE, 'applicant-1', $payload);
+
+        self::assertSame($payload, $link->getPayload());
+        self::assertSame(
+            $payload,
+            $this->manager->validate((string) $link->getToken(), self::PURPOSE)->getPayload()
+        );
+    }
+
     public function testIssueFallsBackToConfiguredDefaultTtl(): void
     {
         $manager = new MagicLinkManager($this->store); // DEFAULT_TTL = 86400
@@ -119,6 +152,23 @@ final class MagicLinkManagerTest extends TestCase
         $this->manager->validate((string) $link->getToken(), 'signup_confirmation');
     }
 
+    public function testPurposeMismatchExceptionDoesNotLeakEitherPurposeInItsMessage(): void
+    {
+        $link = $this->manager->issue(self::PURPOSE);
+
+        try {
+            $this->manager->validate((string) $link->getToken(), 'signup_confirmation');
+            self::fail('Expected a MagicLinkPurposeMismatchException to be thrown.');
+        } catch (MagicLinkPurposeMismatchException $e) {
+            // A caller that logs or displays getMessage() must not learn what
+            // other purpose this token is actually valid for.
+            self::assertStringNotContainsString(self::PURPOSE, $e->getMessage());
+            self::assertStringNotContainsString('signup_confirmation', $e->getMessage());
+            self::assertSame('signup_confirmation', $e->getExpectedPurpose());
+            self::assertSame(self::PURPOSE, $e->getActualPurpose());
+        }
+    }
+
     public function testValidateConsumedTokenThrowsConsumedException(): void
     {
         $link = $this->manager->issue(self::PURPOSE);
@@ -157,6 +207,24 @@ final class MagicLinkManagerTest extends TestCase
         $this->expectException(MagicLinkConsumedException::class);
 
         $this->manager->consume($token, self::PURPOSE);
+    }
+
+    public function testConsumeOnANeverIssuedTokenThrowsNotFoundException(): void
+    {
+        $this->expectException(MagicLinkNotFoundException::class);
+
+        $this->manager->consume(str_repeat('a', 64), self::PURPOSE);
+    }
+
+    public function testRevokeForBeforeUseMakesTheLinkUnconsumable(): void
+    {
+        $link = $this->manager->issue(self::PURPOSE, 'applicant-1');
+
+        $this->manager->revokeFor(self::PURPOSE, 'applicant-1');
+
+        $this->expectException(MagicLinkConsumedException::class);
+
+        $this->manager->consume((string) $link->getToken(), self::PURPOSE);
     }
 
     public function testConsumeWhenTheStoreLosesTheRaceThrowsConsumedException(): void
