@@ -1,0 +1,77 @@
+version: "3"
+
+vars:
+  PHP_CONTAINER: magic-link-php
+  PHP_EXEC: docker compose exec {{.PHP_CONTAINER}}
+  ANALYSE_PATHS: '{{.CLI_ARGS | default "src tests"}}'
+
+tasks:
+  # ─── Infrastructure ───────────────────────────────────────────────────────
+
+  up:
+    desc: "Build (if needed) and start the bundle's dev container in background"
+    cmds:
+      - docker compose up -d --build
+
+  down:
+    desc: "Stop the dev container"
+    cmds:
+      - docker compose down
+
+  restart:
+    desc: "Restart the dev container (down + up)"
+    cmds:
+      - task: down
+      - task: up
+
+  logs:
+    desc: "Tail the dev container's logs"
+    cmds:
+      - docker compose logs -f {{.PHP_CONTAINER}}
+
+  install:
+    desc: "Install Composer dependencies inside the dev container"
+    cmds:
+      - "{{.PHP_EXEC}} composer install"
+
+  # ─── Static analysis ─────────────────────────────────────────────────────
+
+  phpstan:
+    desc: |
+      Run PHPStan static analysis.
+      Default paths: src tests
+      Override: task phpstan -- src
+    cmds:
+      - "{{.PHP_EXEC}} vendor/bin/phpstan analyse {{.ANALYSE_PATHS}}"
+
+  # ─── Code style ──────────────────────────────────────────────────────────
+
+  phpecs:
+    desc: |
+      Check (or fix) code style with EasyCodingStandard.
+      Check only:  task phpecs
+      Auto-fix:    task phpecs -- --fix
+      Custom path: task phpecs -- src --fix
+    cmds:
+      - "{{.PHP_EXEC}} vendor/bin/ecs check {{.ANALYSE_PATHS}}"
+
+  # ─── Tests ───────────────────────────────────────────────────────────────
+
+  tests:
+    desc: |
+      Run the PHPUnit test suite. pdo_sqlite is preinstalled in the
+      container, so the Doctrine store test always runs here (never skipped,
+      unlike a bare host without that extension).
+      All tests:      task tests
+      Specific file:  task tests -- tests/Unit/Manager/MagicLinkManagerTest.php
+    cmds:
+      - '{{.PHP_EXEC}} vendor/bin/phpunit {{.CLI_ARGS | default "tests"}}'
+
+  # ─── Full gate ─────────────────────────────────────────────────────────────
+
+  gate:
+    desc: "Run the full local quality gate: ECS, PHPStan, PHPUnit"
+    cmds:
+      - task: phpecs
+      - task: phpstan
+      - task: tests

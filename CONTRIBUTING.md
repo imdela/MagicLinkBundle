@@ -11,7 +11,8 @@ Thanks for considering a contribution to `ossm/magic-link-bundle`.
 ## Getting set up
 
 ```bash
-composer install
+task up          # build and start the dev container (PHP + pdo_sqlite)
+task install      # composer install inside it
 ```
 
 ## Before opening a pull request
@@ -19,18 +20,17 @@ composer install
 Run the full quality suite locally — CI runs the same checks on every PR:
 
 ```bash
-composer audit          # no open security advisories
-vendor/bin/ecs check     # coding standard (add --fix to auto-correct)
-vendor/bin/phpstan analyse
-vendor/bin/phpunit
+composer audit    # no open security advisories (host or container, either works)
+task gate          # ECS + PHPStan (level max) + PHPUnit, inside the dev container
 ```
 
-All four must pass. New behavior should come with test coverage; bug fixes should
+All must pass. New behavior should come with test coverage; bug fixes should
 include a regression test where practical.
 
-The Doctrine store test runs against an in-memory SQLite database and requires
-the `pdo_sqlite` extension. CI always runs it; if it is skipped on your machine,
-make sure it passes on CI before merging.
+Always use `task gate` (not the host's local PHP) before opening a PR: the
+Doctrine store test needs the `pdo_sqlite` extension, which the dev container
+has preinstalled but a bare host usually doesn't — running on the host silently
+skips that test instead of failing.
 
 ## Commit messages
 
