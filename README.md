@@ -142,7 +142,7 @@ database — runs the same way on any machine, with nothing to install locally.
 ```bash
 task up            # build and start the dev container
 task install        # composer install inside it
-task gate           # ECS + PHPStan (level max) + PHPUnit, all inside it
+task gate           # audit + ECS + PHPStan (level max) + PHPUnit, all inside it
 ```
 
 Individual commands: `task phpecs`, `task phpstan`, `task tests`. See
