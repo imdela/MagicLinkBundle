@@ -34,6 +34,11 @@ tasks:
     cmds:
       - "{{.PHP_EXEC}} composer install"
 
+  audit:
+    desc: "Check dependencies for known security advisories"
+    cmds:
+      - "{{.PHP_EXEC}} composer audit"
+
   # ─── Static analysis ─────────────────────────────────────────────────────
 
   phpstan:
@@ -70,8 +75,9 @@ tasks:
   # ─── Full gate ─────────────────────────────────────────────────────────────
 
   gate:
-    desc: "Run the full local quality gate: ECS, PHPStan, PHPUnit"
+    desc: "Run the full local quality gate: audit, ECS, PHPStan, PHPUnit"
     cmds:
+      - task: audit
       - task: phpecs
       - task: phpstan
       - task: tests

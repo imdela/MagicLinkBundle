@@ -20,8 +20,7 @@ task install      # composer install inside it
 Run the full quality suite locally — CI runs the same checks on every PR:
 
 ```bash
-composer audit    # no open security advisories (host or container, either works)
-task gate          # ECS + PHPStan (level max) + PHPUnit, inside the dev container
+task gate    # audit + ECS + PHPStan (level max) + PHPUnit, inside the dev container
 ```
 
 All must pass. New behavior should come with test coverage; bug fixes should
