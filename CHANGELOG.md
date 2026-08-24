@@ -22,5 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `revokeFor()` — invalidate every outstanding link for a purpose+subject.
 - Autoconfigured Doctrine mapping registration so consumers only need a
   migration, not app-side mapping.
-- CI matrix (PHP 8.2–8.4 × Symfony 6.4/7.4/8.0) with ECS, PHPStan (level max)
+- CI matrix (PHP 8.2–8.4 × Symfony 7.4/8.0) with ECS, PHPStan (level max)
   and PHPUnit.
+- Dedicated dev container (PHP + `pdo_sqlite` preinstalled) via `task up`/`task
+  gate`, so the full test suite runs identically on any machine.

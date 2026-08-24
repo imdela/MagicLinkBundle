@@ -1,0 +1,8 @@
+services:
+  magic-link-php:
+    build: .
+    container_name: magic-link-php
+    working_dir: /app
+    command: tail -f /dev/null
+    volumes:
+      - ./:/app

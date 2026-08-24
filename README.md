@@ -84,6 +84,9 @@ $link = $this->magicLinkManager->issue(
 $url = $this->router->generate('portal', ['token' => $link->getToken()]);
 ```
 
+Pass `ttl` (seconds) to override the configured default for this one link.
+`issue()` throws `InvalidArgumentException` if `ttl` is given and is less than 1.
+
 ### Validate without consuming
 
 ```php
@@ -120,8 +123,11 @@ $this->magicLinkManager->revokeFor('candidate_portal', (string) $applicant->getI
   memory on the issuing request and nowhere else.
 - **Atomicity**: consumption is a single conditional `UPDATE`, so a token can
   never be used twice, even under concurrency.
-- **Timing**: `validate()`/`consume()` compare in constant time on purpose and
-  state — a token never "leaks" whether a sibling purpose exists.
+- **Purpose isolation**: `MagicLinkPurposeMismatchException` never includes either
+  purpose in its message — a caller that logs or displays it learns only that
+  the token was wrong, never what purpose it actually belongs to. Call
+  `getExpectedPurpose()`/`getActualPurpose()` if you need those values
+  internally, but never surface them to the requester.
 - **Rotation**: issuing a replacement link should be paired with `revokeFor()` so
   leaked old links die immediately.
 - **Transport**: always serve the link over HTTPS; the token travels in the URL
@@ -129,12 +135,22 @@ $this->magicLinkManager->revokeFor('candidate_portal', (string) $applicant->getI
 
 ## Development
 
+The bundle ships its own dev container (PHP + `pdo_sqlite` preinstalled) so the
+full test suite — including the Doctrine store test, which needs a real
+database — runs the same way on any machine, with nothing to install locally.
+
 ```bash
-composer install
-vendor/bin/ecs check          # coding standard (add --fix to auto-correct)
-vendor/bin/phpstan analyse    # static analysis, level max
-vendor/bin/phpunit            # unit tests (Doctrine store test needs pdo_sqlite)
+task up            # build and start the dev container
+task install        # composer install inside it
+task gate           # ECS + PHPStan (level max) + PHPUnit, all inside it
 ```
+
+Individual commands: `task phpecs`, `task phpstan`, `task tests`. See
+`Taskfile.yml` for the full list (`task -l`).
+
+Running the tools directly on the host works too, but the Doctrine store test
+will skip itself if `pdo_sqlite` isn't installed there — use `task gate` to
+always run the full suite.
 
 ## License
 
