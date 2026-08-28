@@ -25,7 +25,7 @@ final class MagicLinkBundle extends Bundle
         $container->prependExtensionConfig('doctrine', [
             'orm' => [
                 'mappings' => [
-                    'magic_link_bundle' => [
+                    'MagicLinkBundle' => [
                         'is_bundle' => true,
                         'dir' => 'src/Entity',
                         'prefix' => 'Ossm\\MagicLinkBundle\\Entity',
