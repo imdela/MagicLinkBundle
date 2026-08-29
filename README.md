@@ -56,6 +56,11 @@ bin/console doctrine:migrations:diff
 bin/console doctrine:migrations:migrate
 ```
 
+For the full step-by-step (private-repo auth, verifying the container boots,
+applying the migration to dev **and** test databases, a minimal smoke test to
+confirm the integration actually works), see
+[docs/INTEGRATION.md](docs/INTEGRATION.md).
+
 ## Configuration
 
 ```yaml
