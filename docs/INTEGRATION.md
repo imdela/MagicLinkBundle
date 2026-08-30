@@ -2,50 +2,10 @@
 
 Step-by-step guide for pulling this bundle into a host Symfony application,
 verifying the install actually works, and wiring the token lifecycle end to
-end. Every command here has been run against a real host app.
+end. Every command here has been run against a real host app. See
+[docs/RATIONALE.md](RATIONALE.md) for why this bundle exists.
 
 ## 1. Require the bundle
-
-### Private repository (during development)
-
-While the repository is private, add it as a VCS repository and require the
-`dev-dev` branch:
-
-```json
-// composer.json
-{
-    "require": {
-        "ossm/magic-link-bundle": "dev-dev"
-    },
-    "repositories": {
-        "magic-link-bundle": {
-            "type": "vcs",
-            "url": "https://github.com/imdela/MagicLinkBundle.git"
-        }
-    }
-}
-```
-
-```bash
-composer update ossm/magic-link-bundle
-```
-
-A private repository needs a GitHub token composer can authenticate with
-(`COMPOSER_AUTH` env var, or `composer config github-oauth.github.com <token>`).
-The token must have **explicit access to this repository** — a fine-grained
-personal access token created before this repo existed will not have it by
-default; add the repo to the token's allowed list on GitHub
-(Settings → Developer settings → Fine-grained tokens → edit the token →
-Repository access).
-
-Symptom of a missing/under-scoped token:
-
-```
-Failed to clone ... : remote: Write access to repository not granted.
-fatal: ... returned error: 403
-```
-
-### Public repository / tagged release (once published)
 
 ```bash
 composer require ossm/magic-link-bundle
