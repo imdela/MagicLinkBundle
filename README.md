@@ -22,6 +22,11 @@ real state you need to *store* (a token record you can expire, revoke, and
 consume atomically), nothing in the Symfony ecosystem ships it. This bundle fills
 that gap.
 
+For the full picture — what already existed (Laravel's `laravel-magiclink`,
+Symfony's own `login_link` and 8.2 `UriSigner`, a handful of expiring-link
+bundles) and exactly why none of them covered this case — see
+[docs/RATIONALE.md](docs/RATIONALE.md).
+
 ## Design
 
 | Property | What it means |
@@ -156,6 +161,9 @@ Individual commands: `task phpecs`, `task phpstan`, `task tests`. See
 Running the tools directly on the host works too, but the Doctrine store test
 will skip itself if `pdo_sqlite` isn't installed there — use `task gate` to
 always run the full suite.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request, and
+[SECURITY.md](SECURITY.md) to report a vulnerability privately.
 
 ## License
 
