@@ -1,5 +1,8 @@
 # Security Policy
 
+See the [README](README.md#security-model) for the bundle's security model
+(token generation, hash-at-rest storage, atomic single-use consumption).
+
 ## Supported Versions
 
 Only the latest tagged release receives security fixes.

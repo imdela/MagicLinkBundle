@@ -1,5 +1,8 @@
 # Why This Bundle Exists
 
+See the [README](../README.md) for what the bundle does and how to use it,
+and [docs/INTEGRATION.md](INTEGRATION.md) for installing it into a host app.
+
 ## The problem it solves
 
 A link that grants access to something **without requiring an account** —
