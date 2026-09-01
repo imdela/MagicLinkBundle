@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Tests\Unit\Entity;
+namespace Mosl\MagicLinkBundle\Tests\Unit\Entity;
 
 use DateTimeImmutable;
-use Ossm\MagicLinkBundle\Entity\MagicLink;
+use Mosl\MagicLinkBundle\Entity\MagicLink;
 use PHPUnit\Framework\TestCase;
 
 final class MagicLinkTest extends TestCase

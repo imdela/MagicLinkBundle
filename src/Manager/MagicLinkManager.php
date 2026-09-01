@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Manager;
+namespace Mosl\MagicLinkBundle\Manager;
 
 use DateTimeImmutable;
-use Ossm\MagicLinkBundle\Entity\MagicLink;
-use Ossm\MagicLinkBundle\Exception\MagicLinkConsumedException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkExpiredException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkNotFoundException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkPurposeMismatchException;
-use Ossm\MagicLinkBundle\Store\MagicLinkStoreInterface;
+use Mosl\MagicLinkBundle\Entity\MagicLink;
+use Mosl\MagicLinkBundle\Exception\MagicLinkConsumedException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkExpiredException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkNotFoundException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkPurposeMismatchException;
+use Mosl\MagicLinkBundle\Store\MagicLinkStoreInterface;
 
 /**
  * Entry point of the bundle. Issue a link, then validate+consume it on the

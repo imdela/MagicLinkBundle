@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Store;
+namespace Mosl\MagicLinkBundle\Store;
 
 use DateTimeImmutable;
-use Ossm\MagicLinkBundle\Entity\MagicLink;
+use Mosl\MagicLinkBundle\Entity\MagicLink;
 
 /**
  * Storage contract for magic links. Kept behind an interface so applications

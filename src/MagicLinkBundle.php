@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle;
+namespace Mosl\MagicLinkBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -20,7 +20,7 @@ final class MagicLinkBundle extends Bundle
 
         // Make the shipped MagicLink entity persistable by the consuming app's
         // Doctrine without any app-side mapping: registering the mapping here
-        // means a consumer only has to run a migration for the ossm_magic_link
+        // means a consumer only has to run a migration for the mosl_magic_link
         // table. In apps without DoctrineBundle the config stays inert.
         $container->prependExtensionConfig('doctrine', [
             'orm' => [
@@ -28,7 +28,7 @@ final class MagicLinkBundle extends Bundle
                     'MagicLinkBundle' => [
                         'is_bundle' => true,
                         'dir' => 'src/Entity',
-                        'prefix' => 'Ossm\\MagicLinkBundle\\Entity',
+                        'prefix' => 'Mosl\\MagicLinkBundle\\Entity',
                         'type' => 'attribute',
                     ],
                 ],

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\DependencyInjection;
+namespace Mosl\MagicLinkBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -28,6 +28,6 @@ final class MagicLinkExtension extends Extension
             // type PHPStan cannot see through processConfiguration().
             throw new \LogicException('magic_link.token_ttl must be an integer.');
         }
-        $container->setParameter('ossm_magic_link.token_ttl', $tokenTtl);
+        $container->setParameter('mosl_magic_link.token_ttl', $tokenTtl);
     }
 }

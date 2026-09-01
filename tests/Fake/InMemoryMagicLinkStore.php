@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Tests\Fake;
+namespace Mosl\MagicLinkBundle\Tests\Fake;
 
 use DateTimeImmutable;
-use Ossm\MagicLinkBundle\Entity\MagicLink;
-use Ossm\MagicLinkBundle\Store\MagicLinkStoreInterface;
+use Mosl\MagicLinkBundle\Entity\MagicLink;
+use Mosl\MagicLinkBundle\Store\MagicLinkStoreInterface;
 
 /**
  * In-memory stand-in for the Doctrine store. It reproduces the production

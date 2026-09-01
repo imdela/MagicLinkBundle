@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Entity;
+namespace Mosl\MagicLinkBundle\Entity;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * the caller has built the URL, then it is gone.
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'ossm_magic_link')]
+#[ORM\Table(name: 'mosl_magic_link')]
 class MagicLink
 {
     #[ORM\Id]

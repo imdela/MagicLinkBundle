@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Exception;
+namespace Mosl\MagicLinkBundle\Exception;
 
 final class MagicLinkPurposeMismatchException extends MagicLinkException
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\DependencyInjection;
+namespace Mosl\MagicLinkBundle\DependencyInjection;
 
-use Ossm\MagicLinkBundle\Manager\MagicLinkManager;
+use Mosl\MagicLinkBundle\Manager\MagicLinkManager;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

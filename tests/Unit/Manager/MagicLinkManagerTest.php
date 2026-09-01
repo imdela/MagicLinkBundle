@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Tests\Unit\Manager;
+namespace Mosl\MagicLinkBundle\Tests\Unit\Manager;
 
 use DateTimeImmutable;
-use Ossm\MagicLinkBundle\Entity\MagicLink;
-use Ossm\MagicLinkBundle\Exception\MagicLinkConsumedException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkExpiredException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkNotFoundException;
-use Ossm\MagicLinkBundle\Exception\MagicLinkPurposeMismatchException;
-use Ossm\MagicLinkBundle\Manager\MagicLinkManager;
-use Ossm\MagicLinkBundle\Tests\Fake\InMemoryMagicLinkStore;
+use Mosl\MagicLinkBundle\Entity\MagicLink;
+use Mosl\MagicLinkBundle\Exception\MagicLinkConsumedException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkExpiredException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkNotFoundException;
+use Mosl\MagicLinkBundle\Exception\MagicLinkPurposeMismatchException;
+use Mosl\MagicLinkBundle\Manager\MagicLinkManager;
+use Mosl\MagicLinkBundle\Tests\Fake\InMemoryMagicLinkStore;
 use PHPUnit\Framework\TestCase;
 
 final class MagicLinkManagerTest extends TestCase

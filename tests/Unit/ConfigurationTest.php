@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Tests\Unit;
+namespace Mosl\MagicLinkBundle\Tests\Unit;
 
-use Ossm\MagicLinkBundle\DependencyInjection\Configuration;
-use Ossm\MagicLinkBundle\Manager\MagicLinkManager;
+use Mosl\MagicLinkBundle\DependencyInjection\Configuration;
+use Mosl\MagicLinkBundle\Manager\MagicLinkManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;

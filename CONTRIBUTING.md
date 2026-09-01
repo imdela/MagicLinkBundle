@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for considering a contribution to `ossm/magic-link-bundle`. See the
+Thanks for considering a contribution to `mosl/magic-link-bundle`. See the
 [README](README.md) for what the bundle does and how to use it.
 
 ## Branches

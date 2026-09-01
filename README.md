@@ -1,5 +1,7 @@
 # MagicLinkBundle
 
+> `mosl` stands for **Mosaic OpenSource Library**.
+
 A Symfony bundle for **single-use, expiring capability links** — links that let
 a visitor act *without any user account*.
 
@@ -41,7 +43,7 @@ bundles) and exactly why none of them covered this case — see
 ## Installation
 
 ```bash
-composer require ossm/magic-link-bundle
+composer require mosl/magic-link-bundle
 ```
 
 Register the bundle in `config/bundles.php`:
@@ -49,12 +51,12 @@ Register the bundle in `config/bundles.php`:
 ```php
 return [
     // ...
-    Ossm\MagicLinkBundle\MagicLinkBundle::class => ['all' => true],
+    Mosl\MagicLinkBundle\MagicLinkBundle::class => ['all' => true],
 ];
 ```
 
 The bundle registers its own Doctrine entity mapping, so the only remaining step
-is the migration for the `ossm_magic_link` table:
+is the migration for the `mosl_magic_link` table:
 
 ```bash
 bin/console doctrine:migrations:diff
@@ -78,7 +80,7 @@ The key is optional — it defaults to 86400 (24h).
 
 ## Usage
 
-Inject `Ossm\MagicLinkBundle\Manager\MagicLinkManager`.
+Inject `Mosl\MagicLinkBundle\Manager\MagicLinkManager`.
 
 ### Issue a link
 

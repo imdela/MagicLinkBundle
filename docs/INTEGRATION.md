@@ -8,7 +8,7 @@ end. Every command here has been run against a real host app. See
 ## 1. Require the bundle
 
 ```bash
-composer require ossm/magic-link-bundle
+composer require mosl/magic-link-bundle
 ```
 
 ## 2. Register the bundle
@@ -20,7 +20,7 @@ package ships no Symfony Flex recipe. Add it to `config/bundles.php` by hand:
 // config/bundles.php
 return [
     // ...
-    Ossm\MagicLinkBundle\MagicLinkBundle::class => ['all' => true],
+    Mosl\MagicLinkBundle\MagicLinkBundle::class => ['all' => true],
 ];
 ```
 
@@ -63,7 +63,7 @@ bin/console doctrine:migrations:diff
 Review the generated migration — it should contain exactly one new table:
 
 ```sql
-CREATE TABLE ossm_magic_link (
+CREATE TABLE mosl_magic_link (
     id INT ... PRIMARY KEY,
     token_hash VARCHAR(64) NOT NULL,
     purpose VARCHAR(64) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE ossm_magic_link (
     created_at TIMESTAMP ... NOT NULL,
     consumed_at TIMESTAMP ... DEFAULT NULL
 );
-CREATE UNIQUE INDEX ... ON ossm_magic_link (token_hash);
+CREATE UNIQUE INDEX ... ON mosl_magic_link (token_hash);
 ```
 
 Then apply it (dev **and** test databases, if your app has a separate test
@@ -100,8 +100,8 @@ logic:
 
 namespace App\Tests\Functional;
 
-use Ossm\MagicLinkBundle\Exception\MagicLinkConsumedException;
-use Ossm\MagicLinkBundle\Manager\MagicLinkManager;
+use Mosl\MagicLinkBundle\Exception\MagicLinkConsumedException;
+use Mosl\MagicLinkBundle\Manager\MagicLinkManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 final class MagicLinkSmokeTest extends KernelTestCase

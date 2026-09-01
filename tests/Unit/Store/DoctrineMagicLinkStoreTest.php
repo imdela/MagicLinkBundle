@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Tests\Unit\Store;
+namespace Mosl\MagicLinkBundle\Tests\Unit\Store;
 
 use DateTimeImmutable;
 use Doctrine\DBAL\DriverManager;
@@ -11,8 +11,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Doctrine\ORM\Tools\SchemaTool;
-use Ossm\MagicLinkBundle\Entity\MagicLink;
-use Ossm\MagicLinkBundle\Store\DoctrineMagicLinkStore;
+use Mosl\MagicLinkBundle\Entity\MagicLink;
+use Mosl\MagicLinkBundle\Store\DoctrineMagicLinkStore;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -59,7 +59,7 @@ final class DoctrineMagicLinkStoreTest extends TestCase
         $this->persistLink('plain-token-123');
 
         $row = $this->em->getConnection()
-            ->executeQuery('SELECT token_hash, consumed_at FROM ossm_magic_link')
+            ->executeQuery('SELECT token_hash, consumed_at FROM mosl_magic_link')
             ->fetchAssociative();
 
         self::assertNotFalse($row);
@@ -119,7 +119,7 @@ final class DoctrineMagicLinkStoreTest extends TestCase
 
         $row = $this->em->getConnection()
             ->executeQuery(
-                'SELECT consumed_at FROM ossm_magic_link WHERE token_hash = :hash',
+                'SELECT consumed_at FROM mosl_magic_link WHERE token_hash = :hash',
                 [
                     'hash' => hash('sha256', 'persist-me'),
                 ]

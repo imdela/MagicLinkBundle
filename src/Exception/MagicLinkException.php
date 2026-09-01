@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Exception;
+namespace Mosl\MagicLinkBundle\Exception;
 
 /**
  * Base class for every magic-link failure. Catching this is enough to render a

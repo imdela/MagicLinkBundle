@@ -3,11 +3,11 @@ services:
     autowire: true
     autoconfigure: true
 
-  Ossm\MagicLinkBundle\Store\MagicLinkStoreInterface:
-    alias: Ossm\MagicLinkBundle\Store\DoctrineMagicLinkStore
+  Mosl\MagicLinkBundle\Store\MagicLinkStoreInterface:
+    alias: Mosl\MagicLinkBundle\Store\DoctrineMagicLinkStore
 
-  Ossm\MagicLinkBundle\Store\DoctrineMagicLinkStore: ~
+  Mosl\MagicLinkBundle\Store\DoctrineMagicLinkStore: ~
 
-  Ossm\MagicLinkBundle\Manager\MagicLinkManager:
+  Mosl\MagicLinkBundle\Manager\MagicLinkManager:
     arguments:
-      $defaultTtl: "%ossm_magic_link.token_ttl%"
+      $defaultTtl: "%mosl_magic_link.token_ttl%"

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ossm\MagicLinkBundle\Store;
+namespace Mosl\MagicLinkBundle\Store;
 
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Ossm\MagicLinkBundle\Entity\MagicLink;
+use Mosl\MagicLinkBundle\Entity\MagicLink;
 
 /**
  * Doctrine-backed store.

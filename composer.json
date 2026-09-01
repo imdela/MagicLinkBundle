@@ -1,5 +1,5 @@
 {
-	"name": "ossm/magic-link-bundle",
+	"name": "mosl/magic-link-bundle",
 	"description": "Symfony bundle for single-use, expiring capability links that grant access without a user account",
 	"type": "symfony-bundle",
 	"license": "MIT",
@@ -29,12 +29,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Ossm\\MagicLinkBundle\\": "src/"
+			"Mosl\\MagicLinkBundle\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Ossm\\MagicLinkBundle\\Tests\\": "tests/"
+			"Mosl\\MagicLinkBundle\\Tests\\": "tests/"
 		}
 	}
 }
